@@ -16,12 +16,14 @@ public class Vuelo {
 	private String fecha;
 	private Ruta ruta;
 	private Map<String, Tiquete> tiquetes;
+	private boolean realizado;
 	
 	public Vuelo(Avion avion, String fecha, Ruta ruta) {
 		this.avion = avion;
 		this.fecha = fecha;
 		this.ruta = ruta;
 		this.tiquetes = new HashMap<>();
+		this.realizado = false;
 	}
 
 	public Avion getAvion() {
@@ -56,6 +58,10 @@ public class Vuelo {
 			this.tiquetes.put(tiquete.getCodigo(), tiquete);
 		}
 		return costo;
+	}
+	
+	public void marcarRealizado() {
+		this.realizado = true;
 	}
 	
 	@Override

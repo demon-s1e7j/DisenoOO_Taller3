@@ -1,6 +1,15 @@
 package uniandes.dpoo.aerolinea.persistencia;
 
+import uniandes.dpoo.aerolinea.exceptions.InformacionInconsistenteException;
 import uniandes.dpoo.aerolinea.modelo.Aerolinea;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Scanner;
 
 /**
  * Esta clase no está implementada - y no debería implementarse como parte del taller.
@@ -11,15 +20,33 @@ import uniandes.dpoo.aerolinea.modelo.Aerolinea;
 public class PersistenciaAerolineaPlaintext implements IPersistenciaAerolinea
 {
     @Override
-    public void cargarAerolinea( String archivo, Aerolinea aerolinea )
+    public Aerolinea cargarAerolinea( String archivo, Aerolinea aerolinea ) throws java.io.IOException ,InformacionInconsistenteException
     {
-        // No está implementado (y no es necesario para el taller)
+    	Aerolinea obj;
+    	try {
+    	FileInputStream file = new FileInputStream(archivo);
+    	ObjectInputStream in = new ObjectInputStream(file);
+    	
+    	obj = (Aerolinea) in.readObject();
+    	}
+    	catch (ClassNotFoundException ex) {
+    		obj = null;
+    		System.out.println("Class not Found is caught");
+    	}
+    	return obj;
     }
 
     @Override
-    public void salvarAerolinea( String archivo, Aerolinea aerolinea )
+    public void salvarAerolinea( String archivo, Aerolinea aerolinea ) throws IOException
     {
-        // No está implementado (y no es necesario para el taller)
+    	FileOutputStream file = new FileOutputStream(archivo);
+        ObjectOutputStream out = new ObjectOutputStream(file);
+        
+        out.writeObject(aerolinea);
+        
+        out.close();
+        file.close();
+         
     }
 
 }

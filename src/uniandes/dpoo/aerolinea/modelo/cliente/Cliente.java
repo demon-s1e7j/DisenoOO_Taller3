@@ -35,6 +35,11 @@ public abstract class Cliente {
 		return valor;
 	}
 	
+	public int calcularSaldo() {
+		int valor = this.tiquetesSinUsar.stream().mapToInt(e -> e.getTarifa()).sum();
+		return valor;
+	}
+	
 	public void usarTiquetes(Vuelo vuelo) {
 		Collection<Tiquete> tiquetes = vuelo.getTiquetes();
 		this.tiquetesSinUsar.stream().forEach(tiquet -> {
